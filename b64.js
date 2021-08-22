@@ -94,7 +94,7 @@ var b64 = (function() {
       // be valid. But if 3 padding characters would be needed, the input
       // cannot be valid. Try and add padding characters if necessary/possible.
       if (s.length % 4 == 1) {
-        throw "Invalid base64 input";
+        throw "Niepoprawne dane wejściowe dla base64";
       } else if (s.length % 4 != 0) {
         s += "=".repeat(4 - (s.length % 4));
       }
@@ -103,9 +103,9 @@ var b64 = (function() {
         // Check that each character in this group of 4 is valid
         for (let j = 0; j < 4; j++) {
           if (s[i + j] != "=" && !(s[i + j] in _aRev)) {
-            throw "Invalid base64 input";
+            throw "Niepoprawne dane wejściowe dla base64";
           } else if (s[i + j] == "=" && Math.abs(s.length - (i + j)) > 2) {
-            throw "Invalid base64 input";
+            throw "Niepoprawne dane wejściowe dla base64";
           }
         }
 

@@ -1,6 +1,6 @@
 function error(text) {
   document.querySelector(".error").style.display = "inherit";
-  document.querySelector("#errortext").innerText = `Error: ${text}`;
+  document.querySelector("#errortext").innerText = `Błąd: ${text}`;
 }
 
 // Run when the <body> loads
@@ -8,11 +8,11 @@ async function main() {
   if (window.location.hash) {
     // Fail if the b64 library or API was not loaded
     if (!("b64" in window)) {
-      error("Base64 library not loaded.");
+      error("Biblioteka Base64 nie została wczytana.");
       return;
     }
     if (!("apiVersions" in window)) {
-      error("API library not loaded.");
+      error("Biblioteka API nie została wczytana.");
       return;
     }
 
@@ -22,19 +22,19 @@ async function main() {
     try {
       params = JSON.parse(b64.decode(hash));
     } catch {
-      error("The link appears corrupted.");
+      error("Link wydaje się być uszkodzony.");
       return;
     }
 
     // Check that all required parameters encoded in the URL are present
     if (!("v" in params && "e" in params)) {
-      error("The link appears corrupted. The encoded URL is missing necessary parameters.");
+      error("Link wydaje się być uszkodzony. Nie posiada potrzebnych parametrów.");
       return;
     }
 
     // Check that the version in the parameters is valid
     if (!(params["v"] in apiVersions)) {
-      error("Unsupported API version. The link may be corrupted.");
+      error("Niewspierana wersja API. Link może być uszkodzony.");
       return;
     }
 
@@ -48,9 +48,9 @@ async function main() {
     let hint, password;
     if ("h" in params) {
       hint = params["h"];
-      password = prompt(`Please enter the password to unlock the link.\n\nHint: ${hint}`);
+      password = prompt(`Wprowadź hasło, aby odblokować link.\n\nPodpowiedź: ${hint}`);
     } else {
-      password = prompt("Please enter the password to unlock the link.");
+      password = prompt("Wprowadź hasło, aby przejść do linku.");
     }
 
     // Decrypt and redirect if possible
@@ -59,7 +59,7 @@ async function main() {
       url = await api.decrypt(encrypted, password, salt, iv);
     } catch {
       // Password is incorrect.
-      error("Password is incorrect.");
+      error("Hasło jest niepoprawne.");
 
       // Set the "decrypt without redirect" URL appropriately
       document.querySelector("#no-redirect").href =
@@ -80,8 +80,8 @@ async function main() {
       if (!(urlObj.protocol == "http:"
             || urlObj.protocol == "https:"
             || urlObj.protocol == "magnet:")) {
-        error(`The link uses a non-hypertext protocol, which is not allowed. `
-            + `The URL begins with "${urlObj.protocol}" and may be malicious.`);
+        error("Link korzysta z nie hipertekstowego protokołu, który jest niewspierany. " +
+        "Adres zaczyna się od '" + urlObj.protocol + "' i może być szkodliwy");
         return;
       }
 
@@ -91,7 +91,7 @@ async function main() {
       // the unlocked destination. This is dangerous information leakage.
       window.location.href = url;
     } catch {
-      error("A corrupted URL was encrypted. Cannot redirect.");
+      error("Zaszyfrowano uszkodzony link. Nie mogę przekierować.");
       console.log(url);
       return;
     }
