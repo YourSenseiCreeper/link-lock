@@ -35,7 +35,7 @@ function error(text) {
 async function onDecrypt() {
   // Fail if the b64 library or API was not loaded
   if (!("b64" in window && "apiVersions" in window)) {
-    error("Important libraries not loaded!");
+    error("Ważne biblioteki nie zostały wczytane!");
     return;
   }
 
@@ -45,7 +45,7 @@ async function onDecrypt() {
   try {
     url = new URL(urlText);
   } catch {
-    error("Entered text is not a valid URL. Make sure it includes \"https://\" too!");
+    error("Wprowadzony tekst nie jest poprawnym adresem URL. Upewnij się, że zawiera na początku \"https://\"!");
     return;
   }
 
@@ -53,19 +53,19 @@ async function onDecrypt() {
   try {
     params = JSON.parse(b64.decode(url.hash.slice(1)));
   } catch {
-    error("The link appears corrupted.");
+    error("Link wydaje się być uszkodzony.");
     return;
   }
 
   // Check that all required parameters encoded in the URL are present
   if (!("v" in params && "e" in params)) {
-    error("The link appears corrupted. The encoded URL is missing necessary parameters.");
+    error("Link wydaje się być uszkodzony. Nie posiada potrzebnych parametrów.");
     return;
   }
 
   // Check that the version in the parameters is valid
   if (!(params["v"] in apiVersions)) {
-    error("Unsupported API version. The link may be corrupted.");
+    error("Niewspierana wersja API. Link może być uszkodzony.");
     return;
   }
 
@@ -83,13 +83,13 @@ async function onDecrypt() {
   try {
     decrypted = await api.decrypt(encrypted, password, salt, iv);
   } catch {
-    error("Incorrect password!");
+    error("Niepoprawne hasło!");
     return;
   }
 
   // Print the decrypted link to the output area
   document.querySelector("#output").value = decrypted;
-  error("Decrypted!");
+  error("Odszyfrowany!");
 
   // Update the "Open in New Tab" button to link to the correct place
   document.querySelector("#open").href = decrypted;
@@ -104,7 +104,7 @@ function onCopy(id) {
 
   // Alert the user that the text was successfully copied
   const alertArea = document.querySelector("#copy-alert");
-  alertArea.innerText = `Copied ${output.value.length} characters`;
+  alertArea.innerText = `Skopiowano ${output.value.length} znaków`;
   alertArea.style.opacity = "1";
   setTimeout(() => { alertArea.style.opacity = 0; }, 3000);
 

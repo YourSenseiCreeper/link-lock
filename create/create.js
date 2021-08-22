@@ -38,8 +38,7 @@ function validateInputs() {
     urlObj = new URL(url.value);
   } catch {
     if (!("reportValidity" in url)) {
-      alert("URL invalid. Make sure to include 'http://' or 'https://' at the "
-          + "beginning.");
+      alert("Niepoprawny adres URL. Upewnij się, że zawiera na początku 'http://' lub 'https://'");
     }
     return false;
   }
@@ -49,9 +48,8 @@ function validateInputs() {
   if (!(urlObj.protocol == "http:"
         || urlObj.protocol == "https:"
         || urlObj.protocol == "magnet:")) {
-    url.setCustomValidity("The link uses a non-hypertext protocol, which is "
-        + "not allowed. The URL begins with " + urlObj.protocol + " and may be "
-        + "malicious.");
+    url.setCustomValidity("Link korzysta z nie hipertekstowego protokołu, który jest niewspierany. " +
+    "Adres zaczyna się od '" + urlObj.protocol + "' i może być szkodliwy ");
     url.reportValidity();
     return false;
   }
@@ -107,7 +105,7 @@ async function onEncrypt() {
   const confirmPassword = document.querySelector("#confirm-password")
   const confirmation = confirmPassword.value;
   if (password != confirmation) {
-    confirmPassword.setCustomValidity("Passwords do not match");
+    confirmPassword.setCustomValidity("Hasła się nie zgadzają");
     confirmPassword.reportValidity();
     return;
   }
@@ -151,7 +149,7 @@ function onCopy(id) {
 
   // Alert the user that the text was successfully copied
   const alertArea = document.querySelector(".alert");
-  alertArea.innerText = `Copied ${output.value.length} characters`;
+  alertArea.innerText = `Skopiowano ${output.value.length} znaków`;
   alertArea.style.opacity = "1";
   setTimeout(() => { alertArea.style.opacity = 0; }, 3000);
 
@@ -166,10 +164,9 @@ function onCopy(id) {
 // desperately need the URL to be a few characters shorter.
 function onIvCheck(checkbox) {
   if (!checkbox.checked) {
-    checkbox.checked = !confirm("Please only disable initialization vector "
-        + "randomization if you know what you are doing. Disabling this is "
-        + "detrimental to the security of your encrypted link, and it only "
-        + "saves 20-25 characters in the URL length.\n\nPress \"Cancel\" unless "
-        + "you are very sure you know what you are doing.");
+    checkbox.checked = !confirm("Wyłącz tylko losowy wektor początkowy "
+        + "jeżeli wiesz co robisz. Jego działanie jest kluczowe dla bezpieczeństwa szyfrowania twoje linku "
+        + "oszczędza od 20 do 25 znaków w długości linku.\n\nWciśnij \"OK\" jeżeli "
+        + "jeżeli jesteś przekonany, że wiesz co robisz.");
   }
 }
