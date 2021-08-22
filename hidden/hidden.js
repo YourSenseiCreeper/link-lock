@@ -30,7 +30,7 @@ function error(text) {
 async function onHide() {
   // Fail if the b64 library or API was not loaded
   if (!("b64" in window && "apiVersions" in window)) {
-    error("Important libraries not loaded!");
+    error("Ważne biblioteki nie zostału załadowane!");
     return;
   }
 
@@ -40,7 +40,7 @@ async function onHide() {
   try {
     hiddenUrl = new URL(urlText);
   } catch {
-    error("Hidden URL is not valid. Make sure it includes \"https://\" too!");
+    error("Link ukrycia nie jest poprawny. Upewnij się że zawiera \"https://\"!");
     return;
   }
 
@@ -50,7 +50,7 @@ async function onHide() {
   try {
     bookmarkUrl = new URL(urlText);
   } catch {
-    error("Bookmark URL is not valid. Make sure it includes \"https://\" too!");
+    error("Link zakładki nie jest poprawny. Upewnij się że zawiera \"https://\"!");
     return;
   }
 
@@ -59,7 +59,7 @@ async function onHide() {
   try {
     let _ = JSON.parse(b64.decode(hash));
   } catch {
-    error("The hidden URL appears corrupted. It must be a password-protected Link Lock URL. <a href=\"https://jstrieb.github.io/link-lock\">Click here to add a password.</a>");
+    error("Ukryty link wydaje się być zepsuty. Musi to być link zabezpieczony hasłem Link Lock. <a href=\"https://jstrieb.github.io/link-lock\">Kliknij aby dodać hasło.</a>");
     return;
 
     // Uncomment this to allow hiding arbitrary pages. Not secure though, so I
@@ -87,7 +87,7 @@ async function onHide() {
   // Change the output bookmark title to match the user input
   output.innerText = document.querySelector("#bookmark-title").value;
 
-  error("Bookmark created below.");
+  error("Zakładka stworzona.");
 
   // Scroll to the bottom so the user sees where the bookmark was created
   window.scrollTo({
@@ -121,7 +121,7 @@ function onChangeDecrypt() {
  * Get a random link from Wikipedia
  */
 async function randomLink() {
-	let page = await fetch("https://en.wikipedia.org/w/api.php?"
+	let page = await fetch("https://pl.wikipedia.org/w/api.php?"
 			+ "format=json"
 			+ "&action=query"
 			+ "&generator=random"

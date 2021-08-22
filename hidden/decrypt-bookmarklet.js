@@ -61,7 +61,7 @@ var b64 = (() => {
       let bytes = [];
 
       if (s.length % 4 == 1) {
-        throw "Invalid base64 input";
+        throw "Niepoprawne dane wejściowe dla base64";
       } else if (s.length % 4 != 0) {
         s += "=".repeat(4 - (s.length % 4));
       }
@@ -69,9 +69,9 @@ var b64 = (() => {
       for (let i = 0; i <= (s.length - 4); i += 4) {
         for (let j = 0; j < 4; j++) {
           if (s[i + j] != "=" && !(s[i + j] in _aRev)) {
-            throw "Invalid base64 input";
+            throw "Niepoprawne dane wejściowe dla base64";
           } else if (s[i + j] == "=" && Math.abs(s.length - (i + j)) > 2) {
-            throw "Invalid base64 input";
+            throw "Niepoprawne dane wejściowe dla base64";
           }
         }
 

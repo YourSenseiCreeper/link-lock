@@ -5,12 +5,12 @@
   <!-- Metadata -->
   <meta charset="utf-8" />
   <meta name="author" content="Jacob Strieb" />
-  <meta name="description" content="Create hidden, secret bookmarks for locked, password-protected links." />
+  <meta name="description" content="Stwórz ukryte, zaszyfrowane zakładki dzięki szyfrowaniu linków." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
   <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 
-  <title>Create Hidden Bookmarks</title>
+  <title>Stwórz ukrytą zakładkę</title>
 
   <!-- Styles -->
   <link rel="stylesheet" href="../style.css" type="text/css" />
@@ -23,42 +23,51 @@
 
 <body onload="main()">
   <!-- View on GitHub ribbon -->
-  <a href="https://github.com/jstrieb/link-lock" target="_blank">
-    <img class="ribbon" src="../corner-ribbon-minified.svg" alt="View on GitHub" />
-  </a>
+  <a href="https://github.com/jstrieb/link-lock" class="github-corner" aria-label="Zobacz na Githubie"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
   <!-- Explanation for those who do not have JavaScript enabled -->
   <noscript>
-  <div class="red-border">
-    <p>If you are seeing this, it means that you have JavaScript disabled. Please enable JavaScript to access the locked link.</p>
-
-    <p>This application is entirely programmed in JavaScript. This was done intentionally, so that all encryption and decryption happens client-side. This means the code runs as a distributed application, relying only on GitHub Pages for infrastructure. It also means that no data about locked links is ever stored on a server. The code is designed to be auditable so users can investigate what is happening behind the scenes.</p>
-
-    <p>If you still want to run the application, I encourage you to clone the <a href="https://github.com/jstrieb/link-lock">source code on GitHub</a>. That way you can disable JavaScript only for trusted files on your local machine.</p>
-  </div>
-  </noscript>
+    <div style="border: 3px solid red; padding: 2em;">
+      <p>Jeśli to widzisz, oznacza to, że masz wyłączoną obsługę JavaScript.
+         W rezultacie aplikacja nie będzie u Ciebie poprawnie działać. 
+         Na przykład, żaden z przycisków nie będzie działał.</p>
+      <p>Ta aplikacja jest w całości zaprogramowana w JavaScript. 
+        Zostało to zrobione celowo, aby całe szyfrowanie i deszyfrowanie odbywało się po stronie klienta. 
+        Oznacza to, że kod działa jako aplikacja rozproszona, opierając się jedynie na infrastrukturze GitHub Pages. 
+        Oznacza to również, że żadne dane o zaszyfrowanych linkach nie są i nigdy nie będą przechowywane na serwerze. 
+        Oprócz tego kod jest zaprojektowany tak, aby można było go sprawdzić. Dzięki czemu użytkownicy mogą zbadać, co dzieje się za kulisami.</p>
+      <p>Jeśli nadal chcesz uruchomić aplikację, zachęcam do sklonowania <a href="https://github. com/jstrieb/link-lock">
+        kodu źródłowego na GitHubie</a>. W ten sposób można wyłączyć JavaScript tylko dla zaufanych plików na lokalnym komputerze.</p>
+    </div>
+    </noscript>
 
   <!-- Display errors in a big red box -->
   <div class="error red-border" style="display: none">
-    <p id="errortext">Error</p>
-    <button onclick="main()">Try again</button>
-    <a href="https://jstrieb.github.io/link-lock"><button>Lock a link</button></a>
+    <p id="errortext">Błąd</p>
+    <button onclick="main()">Spróbuj ponownie</button>
+    <a href="https://jstrieb.github.io/link-lock"><button>Zaszyfruj link</button></a>
   </div>
 
-  <h1>Create Hidden Bookmarks</h1>
-  <p>It is possible to protect bookmarks with a password using <a href="https://jstrieb.github.io/link-lock" target="_blank">Link Lock</a>, but a link that needs a password may appear suspicious to someone else seeing it. Hidden bookmarks solve this problem.</p>
-  <p>Hidden bookmarks are disguised to be identical to normal bookmarks, with one exception: clicking them in the right order will open a hidden link. <b>To open the hidden link, click the disguised bookmark first, and then click the decrypt bookmark next.</b> The same decrypt bookmark works for all disguised bookmarks.</p>
-  <p>Read more about how hidden bookmarks work <a target="_blank" href="https://jstrieb.github.io/projects/hidden-bookmarks/">here</a>.</p>
+  <h1>Stwórz ukrytą zakładkę</h1>
+  <p>Możliwe jest zabezpieczenie zakładek hasłem za pomocą <a href="https://jstrieb. github. io/link-lock" target="_blank">Link Lock</a>, 
+    ale link wymagający hasła może wydać się podejrzany komuś, kto go zobaczy. 
+    Ukryte zakładki rozwiązują ten problem.</p>
+  <p>Ukryte zakładki wyglądają tak samo jak zwykłe zakładki, z jednym wyjątkiem: kliknięcie ich w odpowiedniej kolejności otwiera ukryty link. 
+    <b> Aby otworzyć ukryte łącze, należy najpierw kliknąć ukrytą zakładkę, a następnie odszyfrować zakładkę. </b> 
+    Ta sama zakładka deszyfrująca działa dla wszystkich ukrytych zakładek.</p>
+  <p>Przeczytaj o tym w jaki sposób działają ukryte zakładki <a target="_blank" href="https://jstrieb.github.io/projects/hidden-bookmarks/">tutaj (w języku angielskim)</a>.</p>
 
-  <p>Here is how to create hidden bookmarks:</p>
+  <p>Oto jak stworzyć ukrytą zakładkę:</p>
   <ol>
     <li>
-      <a href="https://jstrieb.github.io/link-lock">Add a password to the hidden link</a> if you have not done so already.
+      <a href="https://jstrieb.github.io/link-lock">Dodaj hasło do ukrytego linku</a>, jeśli jeszcze tego nie zrobiłeś.
     </li>
     <li>
-      Drag the "decrypt" bookmark below to your bookmarks bar.
+      Przeciągnij poniższą zakładkę "odszyfruj" na swój pasek zakładek.
 
-      <ul><li style="margin-bottom: 0.5em;">Clicking the decrypt bookmark goes to <code>gmail.com</code> unless the current page is a disguised link. Use the "advanced" options to have it go somewhere else instead.</li></ul>
+      <ul><li style="margin-bottom: 0.5em;">Kliknięcie zakładki deszyfrującej prowadzi do <code>gmail.com</code>, 
+        chyba że bieżąca strona jest ukrytym linkiem. Użyj opcji "zaawansowanych", aby zamiast tego wpisać inny adres.
+      </li></ul>
 
       <style>
         #advanced-label {
@@ -71,15 +80,15 @@
         }
       </style>
       <details>
-        <summary id="advanced-label">advanced</summary>
+        <summary id="advanced-label">zaawansowane</summary>
         <div class="advanced" id="advanced">
           <!--
           <p>Input a new location decoy location for the decrypt bookmark:</p>
           -->
-          <label for="decrypt-bookmark-disguise">decoy location for decrypt bookmark</label>
+          <label for="decrypt-bookmark-disguise">lokalizacja wabika dla zakładki deszyfrowania</label>
           <div class="inline-button-container">
           <input type="text" id="decrypt-bookmark-disguise" value="https://gmail.com" />
-          <button onclick="onChangeDecrypt()">Change Location</button>
+          <button onclick="onChangeDecrypt()">Zmień lokalizację</button>
           <div>
         </div>
       </details>
@@ -189,28 +198,27 @@ try {
   window.location.replace("https://gmail.com");
 }
 
-})();'>Decrypt</a></p>
+})();'>Odszyfruj</a></p>
     </li>
-    <li>It may be a good idea to rename the decrypt bookmark to "Gmail" by right clicking, and either clicking "Edit" or "Properties."</li>
+    <li>Dobrym pomysłem może być zmiana nazwy zakładki deszyfrowania na "Gmail" poprzez kliknięcie prawym przyciskiem myszy i kliknięcie "Edytuj" lub "Właściwości"</li>
     <li>
-      Fill in the hidden URL below (if it is not already filled in). Then, fill in the disguised bookmark name and link.
-      <ul><li>There is a button to generate random disguise links if you do not want to pick your own.</li></ul>
+      Wypełnij ukryty adres URL poniżej (jeśli nie jest jeszcze wypełniony). Następnie wpisz ukrytą nazwę zakładki i link.
+      <ul><li>Kliknij w przycisk do generowania losowych linków ukrycia, jeśli nie masz pomysłu na własny.</li></ul>
     </li>
-    <li>Press the button to create the bookmark. Once created, drag the disguised bookmark to your bookmarks bar.</li>
+    <li>Naciśnij przycisk , aby utworzyć zakładkę. Po utworzeniu przeciągnij ukrytą zakładkę na swój pasek zakładek.</li>
   </ol>
-
   <hr />
 
   <div class="form">
-    <label for="encrypted-url">hidden url</label>
+    <label for="encrypted-url">ukryty link</label>
     <input type="url" id="encrypted-url" oninput="document.querySelector('.alert').style.opacity = 0" />
-    <label for="bookmark-title">disguised bookmark name</label>
+    <label for="bookmark-title">nazwa ukrytej zakładki</label>
     <input type="text" id="bookmark-title" />
-    <label for="bookmark-url">bookmark disguise url</label>
+    <label for="bookmark-url">adres url ukrytej zakładki</label>
     <input type="url" id="bookmark-url" required />
-    <button onclick="onHide()">Create Disguised Bookmark</button>
-    <button onClick="randomLink()">Use A Random Disguise Link</button>
-    <p class="alert">INVISIBLE</p>
+    <button onclick="onHide()">Stwórz ukrytą zakładkę</button>
+    <button onClick="randomLink()">Wylosuj link ukrycia</button>
+    <p class="alert">NIEWIDOCZNA</p>
   </div>
 
   <hr />
@@ -222,17 +230,17 @@ try {
     }
   </style>
   <div class="output">
-    <label for="output">output</label>
+    <label for="output">wynik</label>
     <!-- (Leg) disabled (by acid) -->
-    <a class="bookmark" href="" onclick="return false;" aria-disabled="true" id="output">No Disguised Bookmark Created Yet</a>
-    <p>Drag the disguised bookmark above to the bookmarks bar.</p>
-    <p>To access the hidden link, click the disguised bookmark, then the decrypt bookmark (which may have been renamed to "Gmail").</p>
+    <a class="bookmark" href="" onclick="return false;" aria-disabled="true" id="output">Nie stworzyłeś jeszcze żadnej ukrytej zakładki</a>
+    <p>Przeciągnij ukrytą zakładkę na pasek zakładek powyżej.</p>
+    <p>Aby uzyskać dostęp do ukrytego linku, należy kliknąć ukrytą zakładkę, a następnie zakładkę do odszyfrowania (której nazwa mogła zostać zmieniona na "Gmail").</p>
   </div>
 
   <!-- Page footer -->
   <footer>
   <hr />
-  <p class="copyright">Created by <a href="https://jstrieb.github.io">Jacob Strieb</a>.</p>
+  <p class="copyright">Stworzona przez <a href="https://jstrieb.github.io">Jacoba Strieba</a>, tłumaczenie <a href="https://github.com/YourSenseiCreeper">YourSenseiCreeper</a>.</p>
   </footer>
 </body>
 </body>
